@@ -8,5 +8,5 @@ public interface ArreteRepository {
     List<Arrete> findAll();
     Arrete findById(Long id);
     Arrete save(Arrete arrete);
-    Arrete deleteById(Long id);
+    void deleteById(Long id);
 }

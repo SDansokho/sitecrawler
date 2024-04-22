@@ -5,6 +5,7 @@ import fr.aves.sitecrawler.domain.repository.ArreteRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Repository
 public class ArreteRepositoryImpl implements ArreteRepository {
@@ -17,21 +18,21 @@ public class ArreteRepositoryImpl implements ArreteRepository {
 
     @Override
     public List<Arrete> findAll() {
-        return null;
+        return arreteJpaRepository.findAll();
     }
 
     @Override
     public Arrete findById(Long id) {
-        return null;
+        return arreteJpaRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No arrete found with id" + id));
     }
 
     @Override
     public Arrete save(Arrete arrete) {
-        return null;
+        return arreteJpaRepository.save(arrete);
     }
 
     @Override
-    public Arrete deleteById(Long id) {
-        return null;
+    public void deleteById(Long id) {
+        arreteJpaRepository.deleteById(id);
     }
 }
