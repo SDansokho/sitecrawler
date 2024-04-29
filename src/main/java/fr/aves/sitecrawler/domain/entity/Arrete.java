@@ -2,23 +2,35 @@ package fr.aves.sitecrawler.domain.entity;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "arrete", schema = "crawler")
 public class Arrete {
 
-    @Column(name = "id")
+    @Column(name = "arrete_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    Long id;
+    private Long arreteId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "prefecture_id")
+    private Prefecture prefecture;
 
     @Column(name = "description")
-    String description;
+    private String description;
 
     @Column(name = "date")
-    Date date;
+    private Date date;
+
+    @Column(name = "url", unique = true)
+    private String url;
 }
 

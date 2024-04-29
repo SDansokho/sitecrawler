@@ -23,7 +23,7 @@ public class ArreteRepositoryImpl implements ArreteRepository {
 
     @Override
     public Arrete findById(Long id) {
-        return arreteJpaRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No arrete found with id" + id));
+        return arreteJpaRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No arrete found with id  " + id));
     }
 
     @Override

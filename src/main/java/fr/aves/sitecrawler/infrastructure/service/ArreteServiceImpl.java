@@ -5,6 +5,9 @@ import fr.aves.sitecrawler.domain.repository.ArreteRepository;
 import fr.aves.sitecrawler.domain.services.ArreteService;
 import io.vavr.control.Either;
 import lombok.val;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +17,7 @@ import java.util.NoSuchElementException;
 public class ArreteServiceImpl implements ArreteService {
 
     private final ArreteRepository arreteRepository;
+    private final Logger log = LoggerFactory.getLogger(ArreteService.class);
 
     public ArreteServiceImpl(ArreteRepository arreteRepository) {
         this.arreteRepository = arreteRepository;
@@ -35,7 +39,7 @@ public class ArreteServiceImpl implements ArreteService {
 
     @Override
     public Arrete updateArrete(Arrete newArrete) {
-        val currentArrete  = findArrete(newArrete.getId());
+        val currentArrete  = findArrete(newArrete.getArreteId());
         currentArrete.setDate(newArrete.getDate());
         currentArrete.setDescription(newArrete.getDescription());
         return arreteRepository.save(currentArrete);
@@ -52,7 +56,20 @@ public class ArreteServiceImpl implements ArreteService {
     }
 
     @Override
+    public void updatePrefectureArretes(List<Arrete> arretes) {
+        arretes.forEach(this::updateArret);
+    }
+
+    @Override
     public void deleteArrete(Long id) {
         arreteRepository.deleteById(id);
+    }
+
+    private void updateArret(Arrete arrete) {
+        try{
+            arreteRepository.save(arrete);
+        } catch (DataAccessException exception) {
+            log.warn("There was an issue updating arrete " + arrete.getArreteId());
+        }
     }
 }

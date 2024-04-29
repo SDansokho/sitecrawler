@@ -1,29 +1,38 @@
 package fr.aves.sitecrawler.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "prefecture", schema = "crawler")
 public class Prefecture {
-        @Column(name = "id")
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "prefecture_id")
         @Id
-        Long id;
+        private Long prefectureId;
 
         @Column(name = "nom")
-        String nom;
+        private String nom;
 
-        @ManyToOne(targetEntity = Arrete.class)
-        @JoinColumn(name = "arretes")
-        List<Arrete> arretes;
+        @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "prefecture")
+        private List<Arrete> arretes;
 
         @Column(name = "source")
-        ArreteSource source;
+        private ArreteSource source;
 
-        @Column(name = "targetPath")
-        String targetPath;
+        @Column(name = "target_path")
+        private String targetPagePath;
+
+        @Column(name = "root_path")
+        private String rootPath;
+
+        @Column(name = "target_element")
+        private String targetElement;
 
 }

@@ -11,5 +11,7 @@ public interface ArreteService {
     List<Arrete> getAllArretes();
     Arrete createArrete(Arrete arrete);
 
+    void updatePrefectureArretes(List<Arrete> arretes);
+
     void deleteArrete(Long id);
 }

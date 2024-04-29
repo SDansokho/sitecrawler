@@ -13,5 +13,6 @@ public interface PrefectureService {
     Prefecture updatePrefecture(Long id, Prefecture prefecture);
     List<Prefecture> getAllPrefectures();
     void switchSource(Long id, ArreteSource source);
+    void crawlSite(Long id);
 
 }

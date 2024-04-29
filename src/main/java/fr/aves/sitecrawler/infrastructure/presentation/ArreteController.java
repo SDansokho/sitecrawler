@@ -3,17 +3,14 @@ package fr.aves.sitecrawler.infrastructure.presentation;
 import fr.aves.sitecrawler.domain.entity.Arrete;
 import fr.aves.sitecrawler.domain.services.ArreteService;
 import io.vavr.control.Either;
-import lombok.val;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 import static org.springframework.http.ResponseEntity.noContent;
 import static org.springframework.http.ResponseEntity.ok;
 
-@RestController("/arrete")
+@RestController
+@RequestMapping("/arrete")
 public class ArreteController {
     private final ArreteService arreteService;
 
@@ -32,21 +29,6 @@ public class ArreteController {
                 return noContent().build();
             }
         }
-    }
-
-    @GetMapping()
-    public ResponseEntity<List<Arrete>> getAllArretes() {
-        return ok(arreteService.getAllArretes());
-    }
-
-    @PostMapping("/{id}")
-    public ResponseEntity<Arrete> createArrete(@RequestBody Arrete arrete) {
-        return ok(arreteService.createArrete(arrete));
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Arrete> udpateArrete(@PathVariable("id") Long id,@RequestBody Arrete arrete) {
-        return ok(arreteService.updateArrete(arrete));
     }
 
     @DeleteMapping("/{id}")
