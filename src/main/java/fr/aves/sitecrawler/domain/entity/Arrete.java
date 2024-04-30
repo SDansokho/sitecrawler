@@ -1,6 +1,7 @@
 package fr.aves.sitecrawler.domain.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,6 +23,7 @@ public class Arrete {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "prefecture_id")
+    @JsonBackReference
     private Prefecture prefecture;
 
     @Column(name = "description")
@@ -30,7 +32,7 @@ public class Arrete {
     @Column(name = "date")
     private Date date;
 
-    @Column(name = "url", unique = true)
+    @Column(name = "url")
     private String url;
 }
 
