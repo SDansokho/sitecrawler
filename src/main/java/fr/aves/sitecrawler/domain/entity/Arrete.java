@@ -34,5 +34,12 @@ public class Arrete {
 
     @Column(name = "url")
     private String url;
+
+    public Arrete(Long arreteId, String description, Date date, String url) {
+        this.arreteId = arreteId;
+        this.description = description;
+        this.date = date;
+        this.url = url;
+    }
 }
 
